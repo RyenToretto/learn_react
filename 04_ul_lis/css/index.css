@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content:"";
+    display: table;
+    clear: both;
+}
+
+.unSelectedAble {
+    /* 内容不可以被选中 */
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+body {
+    width: 100%;
+    color: #6819a2;
+    background: #96b377;
+    font: 14px Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: green;
+}
+
+button {
+    width: 88px;
+    height: 36px;
+    color: #b8efea;
+    font-size: 18px;
+    background-color: #94b5b2;
+    border: 0 none;
+    border-radius: 6px;
+}
+
+input {
+    padding: 6px;
+    font-size: 18px;
+    margin: 0 2px;
+    background-color: #b76f59;
+    border: 0 none;
+}
+
+#outer {
+    width: 200px;
+    height: 200px;
+    margin-left: 200px;
+    
+    font-size: 24px;
+    font-weight: 700;
+    background-color: burlywood;
+}

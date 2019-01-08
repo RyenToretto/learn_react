@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello React</title>
+        
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    </head>
+    
+    <body>
+        <div id="outer"></div>
+        
+        <!-- javascript 代码 -->
+        <script src="https://cdn.bootcss.com/react/16.7.0/umd/react.development.js"></script>
+        <script src="https://cdn.bootcss.com/react-dom/16.7.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.js"></script>
+        <script type="text/babel">
+            class Like extends React.Component {    // 组件类
+                constructor(props){
+                    super(props)
+                    this.state = {isLikeMe: false}
+                }
+        
+                // 组件中自定义的方法的 this 默认指向 undefined
+                // 利用 箭头函数 没有自己的 this 来 在函数内使用 this
+                // 若要 更新组件的显示，必须使用 组件的 setState()
+                chgText = ()=>{
+                    // this.state.isLikeMe = !this.state.isLikeMe    无效操作
+                    this.setState({
+                        isLikeMe: !this.state.isLikeMe
+                    })
+                }
+        
+                render(){
+                    const isLikeMe = this.state.isLikeMe
+                    const text =  isLikeMe?"I Like Qu.":"U Like Me."
+                    return <h2 onClick={this.chgText}>{text}</h2>
+                }
+            }
+            
+            ReactDOM.render(<Like/>, document.getElementById("outer"));
+        </script>
+    </body>
+</html>

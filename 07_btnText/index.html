@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello React</title>
+        
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    </head>
+    
+    <body>
+        <div id="outer"></div>
+        
+        <!-- javascript 代码 -->
+        <script src="https://cdn.bootcss.com/react/16.7.0/umd/react.development.js"></script>
+        <script src="https://cdn.bootcss.com/react-dom/16.7.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.js"></script>
+        <script type="text/babel">
+            class ButtonText extends React.Component {    // 组件类
+                hint = ()=>{
+                    alert("left :  "+this.refs.left.value)
+                }
+                centerInfo = (event)=>{
+                    this.refs.tips.innerHTML = event.target.value
+                }
+                handleBlur = (event)=>{
+                    alert("right :  "+event.target.value)
+                }
+                render(){
+                    return (
+                        <div>
+                            <div>
+                                <label>
+                                    <input type="text" ref="left" defaultValue="Come on!"/>
+                                </label>
+                                <label>
+                                    <input type="text" ref="center" onKeyUp={this.centerInfo}/>
+                                </label>
+                                <label>
+                                    <input type="text" ref="right" onBlur={this.handleBlur}/>
+                                </label>
+                            </div>
+                            <button onClick={this.hint}>Tips</button>
+                            <p ref="tips">Hello there.</p>
+                        </div>
+                    )
+                }
+            }
+            
+            ReactDOM.render(<ButtonText/>, document.getElementById("outer"));
+        </script>
+    </body>
+</html>

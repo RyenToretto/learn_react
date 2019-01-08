@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello React</title>
+        
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    </head>
+    
+    <body>
+        <div id="outer"></div>
+        
+        <!-- javascript 代码 -->
+        <script type="text/javascript" src="./js/react/react.development.js"></script>
+        <script type="text/javascript" src="./js/react/react-dom.development.js"></script>
+        <script type="text/javascript" src="./js/react/babel.min.js"></script>
+        <script type="text/babel">
+            const names = ["Loki", "Thor", "Hock"]
+            const ul = (
+                <ul>
+                {
+                    names.map(
+                        (each, index)=><li key={index}>{each}</li>
+                    )
+                }
+                </ul>
+            )
+            ReactDOM.render(ul, document.getElementById("outer"));
+        </script>
+    </body>
+</html>

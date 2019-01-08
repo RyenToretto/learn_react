@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello React</title>
+        
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    </head>
+    
+    <body>
+        <div id="outer"></div>
+        
+        <!-- javascript 代码 -->
+        <script type="text/javascript" src="./js/react/react.development.js"></script>
+        <script type="text/javascript" src="./js/react/react-dom.development.js"></script>
+        <script type="text/javascript" src="./js/react/babel.min.js"></script>
+        <script type="text/babel">
+            const vDOM = <h1>Hello React</h1>;    // 创建 虚拟 DOM
+            ReactDOM.render(vDOM, document.getElementById("outer"));    // 渲染虚拟 DOM
+        </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello React</title>
+        
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    </head>
+    
+    <body>
+        <div id="outer"></div>
+        
+        <!-- javascript 代码 -->
+        <script src="https://cdn.bootcss.com/react/16.7.0/umd/react.development.js"></script>
+        <script src="https://cdn.bootcss.com/react-dom/16.7.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.js"></script>
+        <script type="text/babel">
+            class Person extends React.Component {    // 组件类
+                render(){
+                    const {name, sex, age} = this.props;
+                    return (
+                        <ul >
+                            <li>{name}</li>
+                            <li>{sex}</li>
+                            <li>{age}</li>
+                        </ul>
+                    )
+                }
+            }
+            
+            const sun = {
+                name: "孙悟空",
+                sex: "男",
+                age: 520
+            }
+            ReactDOM.render(<Person {...sun} />, document.getElementById("outer"));
+        </script>
+    </body>
+</html>
