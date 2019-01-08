@@ -41,9 +41,11 @@ a {
 }
 
 button {
-    width: 88px;
     height: 36px;
-    color: #b8efea;
+    margin: 20px;
+    padding: 4px;
+    
+    color: #000;
     font-size: 18px;
     background-color: #94b5b2;
     border: 0 none;
