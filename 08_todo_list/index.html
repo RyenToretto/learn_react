@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title></title>
+        
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <meta name="viewport"
+              content="user-scalable=no,
+                       width=device-width,
+                       initial-scale=1.0,
+                       minimum-scale=1.0,
+                       maximum-scale=1.0"/>
+        
+        <style rel="stylesheet" type="text/css">
+            .unSelectedAble {
+                /* 内容不可以被选中 */
+                -webkit-user-select:none;
+                -moz-user-select:none;
+                -ms-user-select:none;
+                user-select:none;
+            }
+            * {
+                padding: 0;
+                margin: 0;
+            }
+    
+            a {
+                text-decoration: none;
+            }
+    
+            ul,
+            ol {
+                list-style: none;
+            }
+    
+            input {
+                outline: none;
+            }
+    
+            img {
+                display: block;
+            }
+    
+            html,
+            body {
+                height: 100%;
+                /* overflow: hidden; */
+            }
+    
+            /**** Start ****/
+            html {
+                /* touch-action: none; */
+            }
+    
+            #wrap {
+                width: 100%;
+                min-height: 100%;
+        
+                background-color: #96b377;
+            }
+    
+            #content {
+                width: 100%;
+                padding-bottom: 50px;
+                padding-top: 50px;
+                padding-left: 50px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                
+                font-size: 14px;
+                background: darkgrey;
+            }
+    
+            #footer {
+                width: 100%;
+                height: 50px;
+                margin-top: -50px;
+        
+                background: chocolate;
+                text-align: center;
+                line-height: 50px;
+            }
+
+            button {
+                height: 36px;
+                margin: 20px;
+                padding: 4px;
+                
+                color: #000;
+                font-size: 18px;
+                background-color: #94b5b2;
+                border: 0 none;
+                border-radius: 6px;
+            }
+
+            input {
+                padding: 6px;
+                font-size: 18px;
+                margin: 0 2px;
+                background-color: #b76f59;
+                border: 0 none;
+            }
+        </style>
+    </head>
+    
+    <body class="unSelectedAble">
+        
+        <!-- 模拟屏幕区域 -->
+        <div id="wrap">
+            
+            <!-- 内容区域 -->
+            <div id="content">
+            
+            </div>
+        </div>
+        
+        <!-- 底部区域 -->
+        <div id="footer">
+            Copyright ©2019 耶梦加德
+        </div>
+        
+        
+        <!-- javascript 代码 -->
+        <script src="https://cdn.bootcss.com/react/16.7.0/umd/react.development.js"></script>
+        <script src="https://cdn.bootcss.com/react-dom/16.7.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.bootcss.com/prop-types/15.6.2/prop-types.js"></script>
+        <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.js"></script>
+        <script type="text/babel">
+            class APP extends React.Component{
+                state = {
+                    todos: [
+                        "吃饭",
+                        "睡觉",
+                        "打豆豆"
+                    ]
+                };
+                
+                addTodo = (todo)=>{
+                    const todoList = this.state.todos;
+                    if(todo !== ""){
+                        todoList.unshift(todo);
+                        this.setState({
+                            todos: todoList
+                        })
+                    }
+                };
+                
+                render() {
+                    const todos = this.state.todos;
+                    return (
+                        <div>
+                            <h2>待办事项</h2>
+                            <ADDTODO size={todos.length} addTodo={this.addTodo} />
+                            <TODOLIST todos={todos} />
+                        </div>
+                    )
+                }
+            }
+            
+            class ADDTODO extends React.Component{
+                static propTypes = {
+                    size: PropTypes.number.isRequired,
+                    addTodo: PropTypes.func.isRequired
+                };
+                
+                addTodo = ()=>{
+                    const newTodo = this.refs.newTodo.value;
+                    this.props.addTodo(newTodo);
+                    this.refs.newTodo.value = ""
+                };
+                render() {
+                    const size = this.props.size;
+                    return (
+                        <div>
+                            <label>
+                                <input type="text" ref="newTodo"/>
+                            </label>
+                            <button onClick={this.addTodo}>#{size} 增加</button>
+                        </div>
+                    )
+                }
+            }
+            
+            class TODOLIST extends React.Component{
+                static propTypes = {
+                    todos: PropTypes.array.isRequired
+                };
+                
+                render() {
+                    const todos = this.props.todos;
+                    return (
+                        <ul>
+                            {todos.map(
+                                (each)=>{
+                                    return (
+                                        <li>{each}</li>
+                                    )
+                                }
+                            )}
+                        </ul>
+                    )
+                }
+            }
+            
+            ReactDOM.render(<APP/>, document.getElementById("content"))
+        </script>
+    </body>
+</html>
