@@ -132,62 +132,63 @@
         <script type="text/babel">
             class MostPopularReponsitory extends React.Component{
                 state = {
+                    keyword: "",
                     repoUrl: "",
                     repoName: "",
-                    points: ["."],
-                    count: 1
+                    points: [".", ".", "."],
+                    result:"What do u wanna search ?"
+                };
+    
+                handleInput = ()=>{
+                    const keyword = this.refs.newKeyword.value;
+                    this.setState({
+                        keyword
+                    });
                 };
                 
-                componentDidMount(){
-                    const url = `https://api.github.com/search/repositories?q=${this.props.keyword}&sort=stars`;
+                handleSearch = ()=>{
+                    const {keyword, points} = this.state;
+                    if(keyword === ""){
+                        return ;
+                    }
+                    
+                    this.refs.newKeyword.value = "";
+                    this.setState({
+                        keyword: "",
+                        result: <p>Searching{points.map(each=>each)}</p>
+                    });
+                    
+                    const url = `https://api.github.com/search/repositories?q=${keyword}&sort=stars`;
                     axios.get(url).then(response=>{
                         const {name:repoName, html_url:repoUrl} = response.data.items[0];
                         this.setState({
                             repoName,
                             repoUrl
                         });
-                    }).catch(err=>console.log(err?err:"Search From: "+url));
-                    
-                    window.setInterval(()=>{
-                        let {points, count} = this.state;
-                        points.unshift(".");
-                        count += 1;
-                        if(count >= 7){
-                            count = 1;
-                            points = ["."];
-                        }
                         this.setState({
-                            points,
-                            count
-                        })
-                    }, 300)
-                }
+                            result: <span>The most popular Git Reponsitory about {keyword} is
+                                        <a href={repoUrl} target="_blank"> {repoName}</a>
+                                    </span>
+                        });
+                        
+                    }).catch(err=>console.log(err?"Search error: "+err:"Search From: "+url));
+                };
                 
                 render(){
-                    const {repoName, repoUrl, points} = this.state;
-                    if(repoName === ""){
-                        return (
-                            <h1>
-                                Searching {
-                                points.map(each=>{
-                                    return each
-                                })
-                            }
-                            </h1>
-                        )
-                    }else{
-                        return (
-                            <h1>
-                                The most popular Git Reponsitory is
-                                <a href={repoUrl} target="_blank"> {repoName}</a>
-                            </h1>
-                        )
-                    }
+                    const {result} = this.state;
+                    return (
+                        <div>
+                            <label>
+                                <input type="text" ref="newKeyword" onBlur={this.handleInput}/>
+                            </label>
+                            <button onClick={this.handleSearch}>Tips</button>
+                            <h2>{result}</h2>
+                        </div>
+                    )
                 }
             }
-    
-            const keyword = "v";
-            ReactDOM.render(<MostPopularReponsitory keyword="keyword"/>, document.getElementById("content"));
+            
+            ReactDOM.render(<MostPopularReponsitory/>, document.getElementById("content"));
         </script>
     </body>
 </html>
