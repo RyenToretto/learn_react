@@ -1,0 +1,18 @@
+.comment_add {
+    float: left;
+    width: 550px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment_add textarea {
+    height: 200px;
+    resize: none;
+    font-size: 20px;
+    line-height: 2em;
+}
+
+.comment_add button {
+    width: 100px;
+}

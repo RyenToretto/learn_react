@@ -1,0 +1,12 @@
+.flex_box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex_box span {
+    width: 100%;
+}
+
+.flex_box button {
+    width: 10%;
+}
