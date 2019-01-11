@@ -1,55 +1,55 @@
 import React, { Component } from 'react';
-import CommentAdd from '../components/CommentAdd/CommentAdd'
-import CommentShow from '../components/CommentShow/CommentShow'
+import ROW from '../components/ROW/ROW'
+import axios from "axios";
 
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            comments: [{
-                userName: "Tony",
-                content: "So hard..."
-            },{
-                userName: "Jovi",
-                content: "I can do it."
-            },{
-                userName: "Ryen",
-                content: "I am good with this skill."
-            }]
+            isFirst: true,
+            responseData: []
         };
-        this.addComment = this.addComment.bind(this);
-        this.deleteComment = this.deleteComment.bind(this);
+        this.userSearch = this.userSearch.bind(this);
     }
     
-    addComment(nameInput, contentInput){
-        let {comments} = this.state;
-        comments.unshift({
-            userName: nameInput,
-            content: contentInput
+    async userSearch(){
+        const searchName = this.refs.nameInput.value;
+        const result = await axios.get(`https://api.github.com/search/users?q=${searchName}`);
+        
+        // [{},{}...] 数组 被 map 处理返回每一项，[{},{}...]
+        let responseData = result.data.items.map((each, index)=>({
+            usarName:each.login,
+            picUrl:each.avatar_url,
+            gitUrl:each.html_url
+        }));
+        
+        this.setState({
+            responseData,
+            isFirst: false
         });
-        this.setState({
-            comments
-        })
-    }
-    
-    deleteComment(index){
-        const {comments} = this.state;
-        comments.splice(index, 1);
-        this.setState({
-            comments
-        })
     }
     
     render() {
-        const {comments} = this.state;
+        const {responseData, isFirst} = this.state;
+        let display = "none";
+        if(!isFirst){
+            display = responseData.length?"none":"block";
+        }
         return (
             <div className="app">
-                <h1>请发表对 React 的评论</h1>
-                <CommentAdd addComment={this.addComment}/>
-                <CommentShow
-                    comments={comments}
-                    deleteComment={this.deleteComment}
-                />
+                <section className="jumbotron">
+                    <h3 className="jumbotron-heading">Git 用户搜索：</h3>
+                    <div>
+                        <input ref="nameInput" type="text" placeholder="请输入想要搜索的 '用户名'"/>
+                        <button onClick={this.userSearch}>Search</button>
+                    </div>
+                </section>
+                <h3 style={{display}}>未找到相关用户！</h3>
+                {
+                    responseData.map((each, index)=>{
+                        return <ROW key={index} info={each}/>;
+                    })
+                }
             </div>
         );
     }
