@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>HashHistory - Browseristory</title>
+        
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <meta name="viewport"
+              content="user-scalable=no,
+                       width=device-width,
+                       initial-scale=1.0,
+                       minimum-scale=1.0,
+                       maximum-scale=1.0"/>
+        
+        <style rel="stylesheet" type="text/css">
+            .unSelectedAble {
+                /* 内容不可以被选中 */
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            
+            a {
+                text-decoration: none;
+            }
+            
+            ul,
+            ol {
+                list-style: none;
+            }
+            
+            input {
+                outline: none;
+            }
+            
+            img {
+                display: block;
+            }
+            
+            html,
+            body {
+                height: 100%;
+                /* overflow: hidden; */
+            }
+            
+            /**** Start ****/
+            html {
+                /* touch-action: none; */
+            }
+            
+            #wrap {
+                width: 100%;
+                min-height: 100%;
+                
+                background-color: #b3ccaf;
+            }
+            
+            #content {
+                box-shadow: inset 0 0 200px #6d5b2a;
+                width: 100%;
+                padding-bottom: 50px;
+                padding-top: 50px;
+                padding-left: 50px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                
+                font-size: 14px;
+                color: #4b1f4a;
+                background-color: #f0f0eb;
+            }
+            
+            #footer {
+                box-shadow: 0 0 88px #6d5b2a;
+                width: 100%;
+                height: 50px;
+                margin-top: -50px;
+                
+                color: #f0f0eb;
+                background-color: #998d68;
+                text-align: center;
+                line-height: 50px;
+            }
+            
+            button {
+                height: 36px;
+                margin: 20px;
+                padding: 4px;
+                
+                color: #000;
+                font-size: 18px;
+                background-color: #94b5b2;
+                border: 0 none;
+                border-radius: 6px;
+            }
+            
+            button:hover {
+                transform: scale(1.2);
+                box-shadow: 0 0 88px #6d5b2a;
+            }
+            
+            button:active {
+                transform: scale(1);
+                box-shadow: 0 0 40px #6d5b2a;
+            }
+            
+            input {
+                padding: 6px;
+                font-size: 18px;
+                margin: 0 2px;
+                background-color: #b76f59;
+                border: 0 none;
+            }
+        </style>
+    </head>
+    
+    <body class="unSelectedAble">
+        
+        <!-- 模拟屏幕区域 -->
+        <div id="wrap">
+            
+            <!-- 内容区域 -->
+            <div id="content">
+                <p><label>
+                    <input type="text">
+                </label></p>
+                <a href="/index" onclick="return push('/index')">js push 跳转到 index</a><br><br>
+                <button onClick="push('/test2')">push 跳转到 test2</button>&nbsp;
+                <button onClick="replace('/test3')">replace 跳转到 test3</button><br><br>
+                <button onClick="back()">回退</button>&nbsp;
+                <button onClick="forword()">前进</button><br><br>
+            </div>
+        </div>
+        
+        <!-- 底部区域 -->
+        <div id="footer">
+            Copyright ©2019 耶梦加德
+        </div>
+    
+        <script type="text/javascript" src="https://cdn.bootcss.com/history/4.7.2/history.js"></script>
+        <script type="text/javascript">
+            let history = History.createBrowserHistory(); // 方式一
+            // history = History.createHashHistory() // 方式二
+            // console.log(history)
+    
+            function push (to) {
+                history.push(to);
+                return false
+            }
+    
+            function back() {
+                history.goBack()
+            }
+    
+            function forword() {
+                history.goForward()
+            }
+    
+            function replace (to) {
+                history.replace(to)
+            }
+    
+            history.listen((location) => {
+                console.log('请求路由路径变化了', location)
+            })
+        </script>
+    </body>
+</html>
