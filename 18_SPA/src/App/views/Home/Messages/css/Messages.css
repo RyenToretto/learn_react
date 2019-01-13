@@ -1,0 +1,19 @@
+.messages {
+    height: 300px;
+}
+
+.messages ul {
+    height: 216px;
+}
+
+.messages ul>li {
+    display: flex;
+    justify-content: space-between;
+    background-color: #a08dab;
+    height: 66px;
+    margin-bottom: 6px;
+}
+
+.messages ul>li button {
+    margin-left: 10px;
+}
