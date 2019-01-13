@@ -1,0 +1,18 @@
+.left_nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    height: 48px;
+    
+    font-size: 18px;
+    line-height: 48px;
+    background-color: #5bc0de;
+}
+
+.right_content {
+    width: 35%;
+    height: 540px;
+    margin-top: 20px;
+    background-color: #edbaff;
+}
