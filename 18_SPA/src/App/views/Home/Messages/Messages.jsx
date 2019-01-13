@@ -57,7 +57,8 @@ export default class Messages extends Component {
                         })
                     }
                 </ul>
-                <button onClick={()=>this.props.history.goBack()}>回退 ←---</button><hr/>
+                <button onClick={()=>this.props.history.goBack()}>回退 👈</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onClick={()=>this.props.history.goForward()}>前进 👉</button><hr/>
                 <Route path="/home/messages/:id" component={MessageDetail}/>
             </div>
         );
